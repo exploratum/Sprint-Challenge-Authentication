@@ -30,3 +30,36 @@ function getJokes(req, res) {
       res.status(500).json({ message: 'Error Fetching Jokes', error: err });
     });
 }
+
+function generateToken(user) {
+
+  const payload = {
+    subject: user.id, // standard claim = sub
+    username: user.username,
+  };
+
+  const options = {
+    expiresIn: '1d',
+  };
+
+  const secret = process.env.JWT_SECRET;
+
+  return jwt.sign(payload, secret, options);
+}
+
+
+function generateToken(user) {
+
+  const payload = {
+    subject: user.id, // standard claim = sub
+    username: user.username,
+  };
+
+  const options = {
+    expiresIn: '1d',
+  };
+
+  const secret = process.env.JWT_SECRET;
+
+  return jwt.sign(payload, secret, options);
+}
