@@ -34,8 +34,27 @@ async function register(req, res) {
   }
 }
 
-function login(req, res) {
-  // implement user login
+async function login(req, res) {
+  if(req.body.username && req.body.password) {
+    let {username, password} = req.body;
+
+    try {
+      const user = await model.findBy({username});
+      if (user && bcrypt.compareSync(password, user.password)) {
+        const token = generateToken(user);
+        res.status(200).json({message:`welcome ${user.username}`, token})
+      }
+      else {
+        res.status(401).json({ message: 'Invalid Credentials' });
+      }
+    }
+    catch {
+      res.status(500).json({"errorMessage": "That was a problem loggin you in"})
+    }
+  }
+  else {
+    res.status(401).json({ message: 'Invalid Credentials' });
+  }
 }
 
 function getJokes(req, res) {
