@@ -37,7 +37,7 @@ class Signin extends React.Component {
                         </Col>
                     </FormGroup>
     
-                    <Button type='submit'>Sign In</Button>
+                    <Button type='submit' size='lg' color='primary'>Sign In</Button>
                 </Form>
             </Container>
         )

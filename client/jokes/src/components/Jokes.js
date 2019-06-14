@@ -32,16 +32,16 @@ class Jokes extends React.Component {
  
     render() {
         return (
-            <div className='users'>
+            <div className='jokes'>
                 <Container>
                     <Row className='headers'>
-                        <Col>index</Col>
+                        <Col xl={2} >index</Col>
                         <Col>joke</Col>
 
                     </Row>
                     {this.state.jokes.map((joke, index) => 
                         <Row key={joke.id} className='joke'>
-                            <Col>{index}</Col>
+                            <Col xl={2}>{index}</Col>
                             <Col>{joke.joke}</Col>
                         </Row>
                     )}

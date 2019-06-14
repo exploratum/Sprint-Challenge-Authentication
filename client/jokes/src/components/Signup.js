@@ -49,7 +49,7 @@ class Signup extends React.Component {
                         </Col>
                     </FormGroup>
     
-                    <Button type='submit'>Sign Up</Button>
+                    <Button type='submit' size='lg' color='primary'>Sign Up</Button>
                 </Form>
             </Container>
         )
