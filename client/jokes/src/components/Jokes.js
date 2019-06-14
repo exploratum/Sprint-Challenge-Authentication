@@ -20,7 +20,7 @@ class Jokes extends React.Component {
             .get('http://localhost:3300/api/jokes')
             .then(res => {
                 console.log(res)
-                this.setState({jokes: res.data})
+                this.setState(()=>({jokes: res.data}));
             })
             .catch(err => console.log(err))
         }
