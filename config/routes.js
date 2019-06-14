@@ -1,5 +1,9 @@
 const axios = require('axios');
 
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const model = require('./model');
+
 const { authenticate } = require('../auth/authenticate');
 
 module.exports = server => {
@@ -8,8 +12,26 @@ module.exports = server => {
   server.get('/api/jokes', authenticate, getJokes);
 };
 
-function register(req, res) {
-  // implement user registration
+async function register(req, res) {
+
+  if(req.body.username && req.body.password) {
+    const user = req.body;
+    const hash = bcrypt.hashSync(req.body.password, 10);
+    user.password = hash;
+
+    try {
+      const id = await model.add(user)
+      const token = generateToken(user);
+      res.status(201).json({message: `new user id: ${id}`, token});
+    }
+
+    catch {
+      res.status(500).json({"errorMessage": "That was a problem adding the record(s)"})
+    }
+  }
+  else {
+    res.status(401).json({ message: 'Invalid Credentials' });
+  }
 }
 
 function login(req, res) {
@@ -47,6 +69,9 @@ function generateToken(user) {
   return jwt.sign(payload, secret, options);
 }
 
+/*****************************************************************************/
+/*                      Create token for a user                              */
+/*************************************************************************** */
 
 function generateToken(user) {
 
